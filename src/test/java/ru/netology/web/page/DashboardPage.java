@@ -18,18 +18,22 @@ public class DashboardPage {
     public DashboardPage() {
         heading.shouldBe(visible);
     }
+
     public int getCardBalance(DataHelper.CardInfo cardInfo) {
         var text = cards.findBy(Condition.text(cardInfo.getCardNumber().substring(15))).getText();
         return extractBalance(text);
     }
+
     public int getCardBalance(int index) {
         var text = cards.get(index).getText();
         return extractBalance(text);
     }
+
     public TransferPage selectCardToTransfer(DataHelper.CardInfo cardInfo) {
         cards.findBy(Condition.attribute("data-test-id", cardInfo.getTestId())).$("button").click();
         return new TransferPage();
     }
+
     private int extractBalance(String text) {
         var start = text.indexOf(balanceStart);
         var finish = text.indexOf(balanceFinish);
